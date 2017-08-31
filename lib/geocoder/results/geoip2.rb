@@ -13,6 +13,10 @@ module Geocoder
           data.fetch('location', {}).fetch(l, 0.0)
         end
       end
+      
+      def accuracy_radius
+        data.fetch('location',{}).fetch('accuracy_radius',-1)
+      end
 
       def city
         fetch_name(
