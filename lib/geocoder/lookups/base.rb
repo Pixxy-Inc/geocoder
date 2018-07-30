@@ -162,6 +162,8 @@ module Geocoder
       # Return false if exception not raised.
       #
       def raise_error(error, message = nil)
+        Rails.logger.info "error =============================="
+        Rails.logger.info error.inspect
         exceptions = configuration.always_raise
         if exceptions == :all or exceptions.include?( error.is_a?(Class) ? error : error.class )
           raise error, message
@@ -185,7 +187,8 @@ module Geocoder
       end
 
       def parse_json(data)
-        Rails.logger.info data.inspect "========================="
+        Rails.logger.info "data =============================="
+        Rails.logger.info data.inspect
 
         if defined?(ActiveSupport::JSON)
           ActiveSupport::JSON.decode(data)
