@@ -10,12 +10,12 @@ module Geocoder::Lookup
       "Census"
     end
 
-    def map_link_url(coordinates)
-      "http://www.openstreetmap.org/?lat=#{coordinates[0]}&lon=#{coordinates[1]}&zoom=15&layers=M"
-    end
-
     def query_url(query)
-      method = query.reverse_geocode? ? "coordinates" : "onelineaddress"
+      if reverse_geocode? 
+        raise NotImplementedError, "Support for 'reverse_geocode?' is not supported by the Census Geocoding API."
+      else
+        method = "onelineaddress"
+      end
       host = configuration[:host] || "geocoding.geo.census.gov/geocoder/locations"
       "#{protocol}://#{host}/#{method}?" + url_query_string(query)
     end
