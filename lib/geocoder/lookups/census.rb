@@ -19,7 +19,7 @@ module Geocoder::Lookup
     # https://geocoding.geo.census.gov/geocoder/locations/coordinates?parameters
 
     def query_url(query)
-      method = query.reverse_geocode? ? "coordinates" : "address"
+      method = query.reverse_geocode? ? "coordinates" : "onelineaddress"
       host = configuration[:host] || "geocoding.geo.census.gov/geocoder/locations"
       Rails.logger.info "query_url ==================="
       Rails.logger.info "#{protocol}://#{host}/#{method}?" + url_query_string(query)
@@ -42,9 +42,10 @@ module Geocoder::Lookup
     end
 
     def query_url_params(query)
-        # https://geocoding.geo.census.gov/geocoder/Geocoding_Services_API.pdf
+      # https://geocoding.geo.census.gov/geocoder/Geocoding_Services_API.pdf
       params = {
         :benchmark => "Public_AR_Current",
+        :format => "json"
       }.merge(super)
       if query.reverse_geocode?
         lat,lon = query.coordinates
