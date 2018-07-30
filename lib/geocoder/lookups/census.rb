@@ -20,7 +20,9 @@ module Geocoder::Lookup
 
     def query_url(query)
       method = query.reverse_geocode? ? "coordinates" : "address"
-      host = configuration[:host] || "https://geocoding.geo.census.gov/geocoder/locations"
+      host = configuration[:host] || "geocoding.geo.census.gov/geocoder/locations"
+      Rails.logger.info "query_url ==================="
+      Rails.logger.info "#{protocol}://#{host}/#{method}?" + url_query_string(query)
       "#{protocol}://#{host}/#{method}?" + url_query_string(query)
     end
 
