@@ -32,6 +32,7 @@ module Geocoder
   def self.config_for_lookup(lookup_name)
     Rails.logger.info "config_for_lookup"
     data = config.clone
+    Rails.logger.info data.inspect
     data.reject!{ |key,value| !Configuration::OPTIONS.include?(key) }
     if config.has_key?(lookup_name)
       Rails.logger.info "config_variables ====================="
