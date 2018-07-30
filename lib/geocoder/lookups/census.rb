@@ -29,8 +29,9 @@ module Geocoder::Lookup
     private # ---------------------------------------------------------------
 
     def results(query)
-      return [] unless doc = fetch_data(query)
-      doc.is_a?(Array) ? doc : [doc]
+    #   return [] unless doc = fetch_data(query)
+      doc = fetch_data(query)
+    #   doc.is_a?(Array) ? doc : [doc]
     end
 
     def parse_raw_data(raw_data)
