@@ -30,9 +30,12 @@ module Geocoder
   # Read-only access to lookup-specific config data.
   #
   def self.config_for_lookup(lookup_name)
+    Rails.logger.info "config_for_lookup"
     data = config.clone
     data.reject!{ |key,value| !Configuration::OPTIONS.include?(key) }
     if config.has_key?(lookup_name)
+      Rails.logger.info "config_variables ====================="
+      Rails.logger.info lookup_name.inspect
       data.merge!(config[lookup_name])
     end
     data
