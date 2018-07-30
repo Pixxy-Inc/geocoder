@@ -46,14 +46,12 @@ module Geocoder::Result
     #     }
     #   }
 
-    # def poi
-    #   return @data['address'][place_type] if @data['address'].key?(place_type)
-    #   return nil
-    # end
-
-    # def house_number
-    #   @data['address']['house_number']
-    # end
+    def coordinates
+      coordinates = @data['addressMatches'][0]['coordinates']
+      Rails.logger.info "coordinates ========================"
+      Rails.logger.info coordinates.inspect
+      return [coordinates['y'], coordinates['x']] 
+    end
 
     def address
       @data['addressMatches'][0]['matchedAddress']
@@ -67,14 +65,6 @@ module Geocoder::Result
       @data['addressMatches'][0]['city']
     end
 
-    # def village
-    #   @data['address']['village']
-    # end
-
-    # def town
-    #   @data['address']['town']
-    # end
-
     def state
       @data['addressMatches'][0]['state']
     end
@@ -84,63 +74,6 @@ module Geocoder::Result
     def postal_code
       @data['addressMatches'][0]['zip']
     end
-
-    # def county
-    #   @data['addressMatches'][0]['zip']
-    # end
-
-    # def country
-    #   @data['address']['country']
-    # end
-
-    # def country_code
-    #   @data['address']['country_code']
-    # end
-
-    # def suburb
-    #   @data['address']['suburb']
-    # end
-
-    # def city_district
-    #   @data['address']['city_district']
-    # end
-
-    # def state_district
-    #   @data['address']['state_district']
-    # end
-
-    # def neighbourhood
-    #   @data['address']['neighbourhood']
-    # end
-
-    def coordinates
-      coordinates = @data['addressMatches'][0]['coordinates']
-      return [coordinates['y'], coordinates['x']] 
-    end
-
-    # def place_class
-    #   @data['class']
-    # end
-
-    # def place_type
-    #   @data['type']
-    # end
-
-    # def viewport
-    #   south, north, west, east = @data['boundingbox'].map(&:to_f)
-    #   [south, west, north, east]
-    # end
-
-    # def self.response_attributes
-    #   %w[result, addressMatches]
-    # end
-
-    # response_attributes.each do |a|
-    #   unless method_defined?(a)
-    #     define_method a do
-    #       @data[a]
-    #     end
-    #   end
-    # end
+    
   end
 end
