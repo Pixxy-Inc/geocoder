@@ -131,16 +131,16 @@ module Geocoder::Result
     #   [south, west, north, east]
     # end
 
-    def self.response_attributes
-      %w[result, addressMatches]
-    end
+    # def self.response_attributes
+    #   %w[result, addressMatches]
+    # end
 
-    response_attributes.each do |a|
-      unless method_defined?(a)
-        define_method a do
-          @data[a]
-        end
-      end
-    end
+    # response_attributes.each do |a|
+    #   unless method_defined?(a)
+    #     define_method a do
+    #       @data[a]
+    #     end
+    #   end
+    # end
   end
 end
