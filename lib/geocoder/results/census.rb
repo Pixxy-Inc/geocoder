@@ -77,7 +77,7 @@ module Geocoder::Result
 
     def postal_code
       Rails.logger.info "postal_code ========================"
-      @data['result']['addressMatches'][0]['zip']
+      @data['result']['addressMatches'][0]['zip'].to_i
     end
     
   end

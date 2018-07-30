@@ -43,6 +43,7 @@ module Geocoder
       # for reverse geocoding. Returns an array of <tt>Geocoder::Result</tt>s.
       #
       def search(query, options = {})
+        Rails.logger.info "search ========================"
         query = Geocoder::Query.new(query, options) unless query.is_a?(Geocoder::Query)
         results(query).map{ |r|
           result = result_class.new(r)
@@ -103,6 +104,7 @@ module Geocoder
       # An object with configuration data for this particular lookup.
       #
       def configuration
+        Rails.logger.info "configuration ========================"
         Geocoder.config_for_lookup(handle)
       end
 
@@ -110,6 +112,7 @@ module Geocoder
       # Object used to make HTTP requests.
       #
       def http_client
+        Rails.logger.info "http_client ========================"
         proxy_name = "#{protocol}_proxy"
         if proxy = configuration.send(proxy_name)
           proxy_url = !!(proxy =~ /^#{protocol}/) ? proxy : protocol + '://' + proxy
@@ -133,10 +136,12 @@ module Geocoder
       end
 
       def query_url_params(query)
+        Rails.logger.info "query_url_params ========================"
         query.options[:params] || {}
       end
 
       def url_query_string(query)
+        Rails.logger.info "url_query_string ========================"
         hash_to_query(
           query_url_params(query).reject{ |key,value| value.nil? }
         )
@@ -149,6 +154,7 @@ module Geocoder
       # something else (like the URL before OAuth encoding).
       #
       def cache_key(query)
+        Rails.logger.info "cache_key ========================"
         query_url(query)
       end
 
@@ -156,6 +162,7 @@ module Geocoder
       # Class of the result objects
       #
       def result_class
+        Rails.logger.info "result_class ========================"
         Geocoder::Result.const_get(self.class.to_s.split(":").last)
       end
 
