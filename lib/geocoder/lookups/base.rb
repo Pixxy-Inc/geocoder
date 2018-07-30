@@ -83,6 +83,11 @@ module Geocoder
       #
       def cache
         Rails.logger.info "cache ========================"
+        Rails.logger.info "cache.nil? ========================"
+        Rails.logger.info @cache.nil?
+        Rails.logger.info "cache.nil? ========================"
+        Rails.logger.info configuration.cache.inspect
+        byebug
         if @cache.nil? and store = configuration.cache
           @cache = Cache.new(store, configuration.cache_prefix)
         end
