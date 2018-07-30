@@ -54,24 +54,29 @@ module Geocoder::Result
     end
 
     def address
+      Rails.logger.info "address ========================"
       @data['result']['addressMatches'][0]['matchedAddress']
     end
 
     def street
+      Rails.logger.info "street ========================"
       @data['result']['addressMatches'][0]['streetName']
     end
 
     def city
+      Rails.logger.info "city ========================"
       @data['result']['addressMatches'][0]['city']
     end
 
     def state
+      Rails.logger.info "state ========================"
       @data['result']['addressMatches'][0]['state']
     end
 
     alias_method :state_code, :state
 
     def postal_code
+      Rails.logger.info "postal_code ========================"
       @data['result']['addressMatches'][0]['zip']
     end
     

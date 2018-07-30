@@ -66,6 +66,7 @@ module Geocoder
       # Empty array if keys are optional or not required.
       #
       def required_api_key_parts
+        Rails.logger.info "required_api_key_parts ========================"
         []
       end
 
@@ -80,6 +81,7 @@ module Geocoder
       # The working Cache object.
       #
       def cache
+        Rails.logger.info "cache ========================"
         if @cache.nil? and store = configuration.cache
           @cache = Cache.new(store, configuration.cache_prefix)
         end
@@ -176,6 +178,7 @@ module Geocoder
       # Returns a parsed search result (Ruby hash).
       #
       def fetch_data(query)
+        Rails.logger.info "fetch_data ========================"
         parse_raw_data fetch_raw_data(query)
       rescue SocketError => err
         raise_error(err) or Geocoder.log(:warn, "Geocoding API connection cannot be established.")
@@ -203,6 +206,7 @@ module Geocoder
       # Parses a raw search result (returns hash or array).
       #
       def parse_raw_data(raw_data)
+        Rails.logger.info "parse_raw_data ========================"
         parse_json(raw_data)
       end
 
@@ -211,10 +215,12 @@ module Geocoder
       # Set in configuration but not available for every service.
       #
       def protocol
+        Rails.logger.info "protocol ========================"
         "http" + (use_ssl? ? "s" : "")
       end
 
       def valid_response?(response)
+        Rails.logger.info "valid_response? ========================"
         (200..399).include?(response.code.to_i)
       end
 
@@ -223,6 +229,7 @@ module Geocoder
       # The result might or might not be cached.
       #
       def fetch_raw_data(query)
+        Rails.logger.info "fetch_raw_data ========================"
         key = cache_key(query)
         if cache and body = cache[key]
           @cache_hit = true
@@ -253,6 +260,7 @@ module Geocoder
       end
 
       def check_response_for_errors!(response)
+        Rails.logger.info "check_response_for_errors! ========================"
         if response.code.to_i == 400
           raise_error(Geocoder::InvalidRequest) ||
             Geocoder.log(:warn, "Geocoding API error: 400 Bad Request")
@@ -276,6 +284,7 @@ module Geocoder
       # return the response object.
       #
       def make_api_request(query)
+        Rails.logger.info "make_api_request ========================"
         uri = URI.parse(query_url(query))
         Geocoder.log(:debug, "Geocoder: HTTP request being made for #{uri.to_s}")
         http_client.start(uri.host, uri.port, use_ssl: use_ssl?, open_timeout: configuration.timeout, read_timeout: configuration.timeout) do |client|
@@ -296,6 +305,7 @@ module Geocoder
       end
 
       def use_ssl?
+        Rails.logger.info "use_ssl? ========================"
         if supported_protocols == [:https]
           true
         elsif supported_protocols == [:http]
@@ -308,6 +318,7 @@ module Geocoder
       def configure_ssl!(client); end
 
       def check_api_key_configuration!(query)
+        Rails.logger.info "check_api_key_configuration! ========================"
         key_parts = query.lookup.required_api_key_parts
         if key_parts.size > Array(configuration.api_key).size
           parts_string = key_parts.size == 1 ? key_parts.first : key_parts

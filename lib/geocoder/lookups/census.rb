@@ -38,6 +38,7 @@ module Geocoder::Lookup
     end
 
     def parse_raw_data(raw_data)
+        Rails.logger.info "parse_raw_data ========================"
       if raw_data.include?("Bandwidth limit exceeded")
         raise_error(Geocoder::OverQueryLimitError) || Geocoder.log(:warn, "Over API query limit.")
       else
@@ -46,6 +47,7 @@ module Geocoder::Lookup
     end
 
     def query_url_params(query)
+        Rails.logger.info "query_url_params ========================"
       # https://geocoding.geo.census.gov/geocoder/Geocoding_Services_API.pdf
       params = {
         :benchmark => "Public_AR_Current",
