@@ -185,6 +185,8 @@ module Geocoder
       end
 
       def parse_json(data)
+        Rails.logger.info data.inspect "========================="
+
         if defined?(ActiveSupport::JSON)
           ActiveSupport::JSON.decode(data)
         else
