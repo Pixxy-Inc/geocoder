@@ -49,6 +49,7 @@ module Geocoder::Result
     def coordinates
       coordinates = @data['addressMatches'][0]['coordinates']
       Rails.logger.info "coordinates ========================"
+      Rails.logger.info coordinates.inspect
       return [coordinates['y'].to_f, coordinates['x'].to_f] 
     end
 

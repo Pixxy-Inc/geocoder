@@ -30,7 +30,10 @@ module Geocoder::Lookup
 
     def results(query)
     #   return [] unless doc = fetch_data(query)
+      Rails.logger.info "getting_results ====================="
       doc = fetch_data(query)
+      Rails.logger.info doc.inspect
+      return doc
     #   doc.is_a?(Array) ? doc : [doc]
     end
 
