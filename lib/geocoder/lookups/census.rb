@@ -42,17 +42,16 @@ module Geocoder::Lookup
     end
 
     def query_url_params(query)
+        # https://geocoding.geo.census.gov/geocoder/Geocoding_Services_API.pdf
       params = {
-        :format => "json",
-        :addressdetails => "1",
-        :"accept-language" => (query.language || configuration.language)
+        :benchmark => "Public_AR_Current",
       }.merge(super)
       if query.reverse_geocode?
         lat,lon = query.coordinates
         params[:x] = lat
         params[:y] = lon
       else
-        params[:q] = query.sanitized_text
+        params[:address] = query.sanitized_text
       end
       params
     end
