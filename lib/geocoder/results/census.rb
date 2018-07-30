@@ -47,32 +47,32 @@ module Geocoder::Result
     #   }
 
     def coordinates
-      coordinates = @data['addressMatches'][0]['coordinates']
+      coordinates = @data['result']['addressMatches'][0]['coordinates']
       Rails.logger.info "coordinates ========================"
       Rails.logger.info coordinates.inspect
       return [coordinates['y'].to_f, coordinates['x'].to_f] 
     end
 
     def address
-      @data['addressMatches'][0]['matchedAddress']
+      @data['result']['addressMatches'][0]['matchedAddress']
     end
 
     def street
-      @data['addressMatches'][0]['streetName']
+      @data['result']['addressMatches'][0]['streetName']
     end
 
     def city
-      @data['addressMatches'][0]['city']
+      @data['result']['addressMatches'][0]['city']
     end
 
     def state
-      @data['addressMatches'][0]['state']
+      @data['result']['addressMatches'][0]['state']
     end
 
     alias_method :state_code, :state
 
     def postal_code
-      @data['addressMatches'][0]['zip']
+      @data['result']['addressMatches'][0]['zip']
     end
     
   end
