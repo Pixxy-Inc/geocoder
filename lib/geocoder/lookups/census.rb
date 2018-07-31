@@ -11,7 +11,7 @@ module Geocoder::Lookup
     end
 
     def query_url(query)
-      if reverse_geocode? 
+      if query.reverse_geocode? 
         raise NotImplementedError, "Support for 'reverse_geocode?' is not supported by the Census Geocoding API."
       else
         method = "onelineaddress"
