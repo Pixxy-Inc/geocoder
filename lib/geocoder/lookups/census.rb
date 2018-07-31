@@ -24,9 +24,9 @@ module Geocoder::Lookup
 
     def results(query)
       doc = fetch_data(query)
-      Rails.logger.info doc.inspect
       if doc['result']['addressMatches'].empty?
-        raise_error(Geocoder::Error, "No matches found for address")
+        # raise_error(Geocoder::Error, "No matches found for address.")
+        warn("No matches found for address.")
         return {}
       else 
         return doc['result']
