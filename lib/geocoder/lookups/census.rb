@@ -25,21 +25,12 @@ module Geocoder::Lookup
     def results(query)
       doc = fetch_data(query)
       Rails.logger.info doc.inspect
-      return doc
-    #   return [] unless doc = fetch_data(query)
-    #   case doc['status']; when "OK" # OK status implies >0 results
-    #     return doc['results']
-    #   when "OVER_QUERY_LIMIT"
-    #     raise_error(Geocoder::OverQueryLimitError) ||
-    #       Geocoder.log(:warn, "#{name} API error: over query limit.")
-    #   when "REQUEST_DENIED"
-    #     raise_error(Geocoder::RequestDenied) ||
-    #       Geocoder.log(:warn, "#{name} API error: request denied.")
-    #   when "INVALID_REQUEST"
-    #     raise_error(Geocoder::InvalidRequest) ||
-    #       Geocoder.log(:warn, "#{name} API error: invalid request.")
-    #   end
-    #   return []
+      if doc['result']['addressMatches'].empty?
+        raise_error(Geocoder::Error, "No matches found for address")
+        return {}
+      else 
+        return doc['result']
+      end
     end
 
     def parse_raw_data(raw_data)

@@ -41,7 +41,7 @@ module Geocoder::Result
     private
 
     def attributes
-      @data[1]['addressMatches'][0]
+      @data['addressMatches'][0]
     end
     
   end
