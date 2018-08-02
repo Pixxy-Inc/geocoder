@@ -32,7 +32,7 @@ module Geocoder::Lookup
       else 
         Rails.logger.info "===================================="
         Rails.logger.info doc['result'].inspect
-        return doc['result']
+        return doc
       end
     end
 

@@ -60,7 +60,7 @@ module Geocoder::Result
       Rails.logger.info "attributes ===================================="
       Rails.logger.info data.inspect
       Rails.logger.info @data.inspect
-      return data['addressMatches'][0] || {}
+      return @data['result']['addressMatches'][0]
     end
     
   end
