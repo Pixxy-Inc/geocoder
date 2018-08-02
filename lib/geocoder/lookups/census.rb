@@ -18,9 +18,7 @@ module Geocoder::Lookup
         method = "onelineaddress"
       end
       host = configuration[:host] || "geocoding.geo.census.gov/geocoder/locations"
-      Rails.logger.info "===================================="
-      Rails.logger.info "#{protocol}://#{host}/#{method}?" + url_query_string(query)
-      "#{protocol}://#{host}/#{method}?" + url_query_string(query)
+      return "#{protocol}://#{host}/#{method}?" + url_query_string(query)
     end
 
     private # ---------------------------------------------------------------
@@ -32,6 +30,8 @@ module Geocoder::Lookup
         warn("No matches found for address.")
         return {}
       else 
+        Rails.logger.info "===================================="
+        Rails.logger.info doc['result'].inspect
         return doc['result']
       end
     end
