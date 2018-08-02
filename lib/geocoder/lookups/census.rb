@@ -28,7 +28,7 @@ module Geocoder::Lookup
       if doc['result']['addressMatches'].empty?
         # raise_error(Geocoder::Error, "No matches found for address.")
         warn("No matches found for address.")
-        return {}
+        return [{}]
       else 
         Rails.logger.info "one ===================================="
         Rails.logger.info doc['result'].inspect
@@ -36,7 +36,7 @@ module Geocoder::Lookup
         Rails.logger.info doc['result']['addressMatches'].inspect
         Rails.logger.info "three ===================================="
         Rails.logger.info doc['result']['addressMatches'].first.inspect
-        return doc['result']['addressMatches'].first
+        return [doc['result']['addressMatches'].first]
       end
     end
 
