@@ -47,8 +47,7 @@ module Geocoder::Lookup
     def query_url_params(query)
       params = {
         :benchmark => "Public_AR_Current",
-        :format => "json",
-        :key => configuration[:api_key]
+        :format => "json"
       }.merge(super)
       if query.reverse_geocode?
         raise NotImplementedError, "Support for 'reverse_geocode?' is not supported by the Census Geocoding API."
@@ -58,7 +57,7 @@ module Geocoder::Lookup
       else
         params[:address] = query.sanitized_text
       end
-      params
+      return params
     end
 
   end
