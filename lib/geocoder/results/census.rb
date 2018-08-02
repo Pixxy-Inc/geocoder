@@ -4,6 +4,9 @@ module Geocoder::Result
   class Census < Base
 
     def coordinates
+      Rails.logger.info "coordinates data coords ===================================="
+      Rails.logger.info @data.inspect
+
       coordinate_data = @data['coordinates']
       Rails.logger.info "coords ===================================="
       Rails.logger.info coordinate_data.inspect
@@ -11,6 +14,8 @@ module Geocoder::Result
     end
 
     def latitude
+      Rails.logger.info "coordinates data lat ===================================="
+      Rails.logger.info @data.inspect
       Rails.logger.info "lat ===================================="
       Rails.logger.info coordinates[0].inspect
       return coordinates[0]
