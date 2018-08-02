@@ -12,8 +12,6 @@ module Geocoder::Lookup
     end
 
     def query_url(query)
-      Rails.logger.info "=========================="
-      Rails.logger.info "=========================="
       if query.reverse_geocode? 
         raise NotImplementedError, "Support for 'reverse_geocode?' is not supported by the Census Geocoding API."
       else

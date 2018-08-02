@@ -174,6 +174,8 @@ module Geocoder
       # Returns a parsed search result (Ruby hash).
       #
       def fetch_data(query)
+        Rails.logger.info "=========================="
+        Rails.logger.info query.inspect
         parse_raw_data fetch_raw_data(query)
       rescue SocketError => err
         raise_error(err) or Geocoder.log(:warn, "Geocoding API connection cannot be established.")
