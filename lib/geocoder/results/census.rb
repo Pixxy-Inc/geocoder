@@ -58,8 +58,8 @@ module Geocoder::Result
 
     def attributes
       Rails.logger.info "attributes ===================================="
-      Rails.logger.info @data['addressMatches'][0].inspect
-      return @data['addressMatches'][0] || {}
+      Rails.logger.info data['addressMatches'][0].inspect
+      return data['addressMatches'][0] || {}
     end
     
   end
