@@ -30,12 +30,6 @@ module Geocoder::Lookup
         warn("No matches found for address.")
         return [{}]
       else 
-        Rails.logger.info "one ===================================="
-        Rails.logger.info doc['result'].inspect
-        Rails.logger.info "two ===================================="
-        Rails.logger.info doc['result']['addressMatches'].inspect
-        Rails.logger.info "three ===================================="
-        Rails.logger.info doc['result']['addressMatches'].first.inspect
         return [doc['result']['addressMatches'].first]
       end
     end
@@ -52,6 +46,7 @@ module Geocoder::Lookup
       params = {
         :benchmark => "Public_AR_Current",
         :format => "json",
+        :key => configuration['api_key']
       }.merge(super)
       if query.reverse_geocode?
         raise NotImplementedError, "Support for 'reverse_geocode?' is not supported by the Census Geocoding API."
