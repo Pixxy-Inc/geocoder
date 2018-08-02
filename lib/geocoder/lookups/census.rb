@@ -30,9 +30,13 @@ module Geocoder::Lookup
         warn("No matches found for address.")
         return {}
       else 
-        Rails.logger.info "===================================="
+        Rails.logger.info "one ===================================="
         Rails.logger.info doc['result'].inspect
-        return doc
+        Rails.logger.info "two ===================================="
+        Rails.logger.info doc['result']['addressMatches'].inspect
+        Rails.logger.info "three ===================================="
+        Rails.logger.info doc['result']['addressMatches'].first.inspect
+        return doc['result']['addressMatches'].first
       end
     end
 
