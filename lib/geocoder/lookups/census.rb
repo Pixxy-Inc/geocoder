@@ -4,13 +4,16 @@ require "geocoder/results/census"
 module Geocoder::Lookup
   class Census < Base
 
-    # DOCS: https://geocoding.geo.census.gov/geocoder/Geocoding_Services_API.pdf
+    # CENSUS_API_DOCS: https://www.census.gov/content/dam/Census/data/developers/api-user-guide/api-guide.pdf
+    # GEOCODING_API_DOCS: https://geocoding.geo.census.gov/geocoder/Geocoding_Services_API.pdf
 
     def name
       "Census"
     end
 
     def query_url(query)
+      Rails.logger.info "=========================="
+      Rails.logger.info "=========================="
       if query.reverse_geocode? 
         raise NotImplementedError, "Support for 'reverse_geocode?' is not supported by the Census Geocoding API."
       else
@@ -44,12 +47,14 @@ module Geocoder::Lookup
     def query_url_params(query)
       params = {
         :benchmark => "Public_AR_Current",
-        :format => "json"
+        :format => "json",
+        :key => configuration.api_key
       }.merge(super)
       if query.reverse_geocode?
-        lat,lon = query.coordinates
-        params[:x] = lat
-        params[:y] = lon
+        raise NotImplementedError, "Support for 'reverse_geocode?' is not supported by the Census Geocoding API."
+        # lat,lon = query.coordinates
+        # params[:x] = lat
+        # params[:y] = lon
       else
         params[:address] = query.sanitized_text
       end
