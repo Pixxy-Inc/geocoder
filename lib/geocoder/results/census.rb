@@ -4,7 +4,7 @@ module Geocoder::Result
   class Census < Base
 
     def coordinates
-      coordinate_data = attributes['coordinates']
+      coordinate_data = @data['coordinates']
       Rails.logger.info "coords ===================================="
       Rails.logger.info coordinate_data.inspect
       return [coordinate_data['y'].to_f, coordinate_data['x'].to_f] 
@@ -22,11 +22,11 @@ module Geocoder::Result
       return coordinates[1]
     end
 
-    def address
-      Rails.logger.info "matchedAddress ===================================="
-      Rails.logger.info attributes['matchedAddress']
-      return attributes['matchedAddress']
-    end
+    # def address
+    #   Rails.logger.info "matchedAddress ===================================="
+    #   Rails.logger.info attributes['matchedAddress']
+    #   return attributes['matchedAddress']
+    # end
 
     def street
       Rails.logger.info "street ===================================="
@@ -59,7 +59,7 @@ module Geocoder::Result
     def attributes
       Rails.logger.info "attributes ===================================="
       Rails.logger.info @data.inspect
-      return @data
+      return @data['addressComponents']
     end
     
   end
