@@ -24,25 +24,25 @@ module Geocoder::Result
 
     def address
       Rails.logger.info "matchedAddress ===================================="
-      Rails.logger.info @data['matchedAddress']
+      Rails.logger.info attributes['matchedAddress']
       attributes['matchedAddress']
     end
 
     def street
       Rails.logger.info "street ===================================="
-      Rails.logger.info @data['street']
+      Rails.logger.info attributes['street']
       attributes['streetName']
     end
 
     def city
       Rails.logger.info "city ===================================="
-      Rails.logger.info @data['city']
+      Rails.logger.info attributes['city']
       attributes['city']
     end
 
     def state
       Rails.logger.info "state ===================================="
-      Rails.logger.info @data['state']
+      Rails.logger.info attributes['state']
       attributes['state']
     end
 
@@ -50,7 +50,7 @@ module Geocoder::Result
 
     def postal_code
       Rails.logger.info "zip ===================================="
-      Rails.logger.info @data['zip']
+      Rails.logger.info attributes['zip']
       attributes['zip']
     end
 
