@@ -18,6 +18,8 @@ module Geocoder::Lookup
         method = "onelineaddress"
       end
       host = configuration[:host] || "geocoding.geo.census.gov/geocoder/locations"
+      Rails.logger.info "===================================="
+      Rails.logger.info "#{protocol}://#{host}/#{method}?" + url_query_string(query)
       "#{protocol}://#{host}/#{method}?" + url_query_string(query)
     end
 
@@ -46,7 +48,7 @@ module Geocoder::Lookup
       params = {
         :benchmark => "Public_AR_Current",
         :format => "json",
-        :key => configuration.api_key
+        :key => configuration[:api_key]
       }.merge(super)
       if query.reverse_geocode?
         raise NotImplementedError, "Support for 'reverse_geocode?' is not supported by the Census Geocoding API."
