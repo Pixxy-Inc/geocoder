@@ -20,6 +20,8 @@ module Geocoder::Lookup
       host = configuration[:host] || "geocoding.geo.census.gov/geocoder/locations"
       Rails.logger.info "url======================"
       Rails.logger.info "#{protocol}://#{host}/#{method}?" + url_query_string(query)
+      puts "#{protocol}://#{host}/#{method}?" + url_query_string(query)
+      warn( "#{protocol}://#{host}/#{method}?" + url_query_string(query))
       return "#{protocol}://#{host}/#{method}?" + url_query_string(query)
     end
 
@@ -39,6 +41,8 @@ module Geocoder::Lookup
     def parse_raw_data(raw_data)
       Rails.logger.info "data======================"
       Rails.logger.info raw_data.inspect
+      puts raw_data
+      warn(raw_data)
       if raw_data.include?("Bandwidth limit exceeded")
         raise_error(Geocoder::OverQueryLimitError) || Geocoder.log(:warn, "Over API query limit.")
       else
@@ -60,6 +64,8 @@ module Geocoder::Lookup
       else
         Rails.logger.info "sanitized_text======================"
         Rails.logger.info query.sanitized_text.inspect
+        puts query.sanitized_text
+        warn(query.sanitized_text)
         # params[:address] = query.sanitized_text
         params[:street] = query.sanitized_text[0]
         params[:city] = query.sanitized_text[1]
