@@ -15,9 +15,11 @@ module Geocoder::Lookup
       if query.reverse_geocode? 
         raise NotImplementedError, "Support for 'reverse_geocode?' is not supported by the Census Geocoding API."
       else
-        method = "onelineaddress"
+        method = "address"
       end
       host = configuration[:host] || "geocoding.geo.census.gov/geocoder/locations"
+      Rails.logger.info "url======================"
+      Rails.logger.info "#{protocol}://#{host}/#{method}?" + url_query_string(query)
       return "#{protocol}://#{host}/#{method}?" + url_query_string(query)
     end
 
@@ -35,6 +37,7 @@ module Geocoder::Lookup
     end
 
     def parse_raw_data(raw_data)
+      Rails.logger.info "data======================"
       Rails.logger.info raw_data.inspect
       if raw_data.include?("Bandwidth limit exceeded")
         raise_error(Geocoder::OverQueryLimitError) || Geocoder.log(:warn, "Over API query limit.")
@@ -55,7 +58,13 @@ module Geocoder::Lookup
         # params[:x] = lat
         # params[:y] = lon
       else
+        Rails.logger.info "sanitized_text======================"
+        Rails.logger.info query.sanitized_text.inspect
         params[:address] = query.sanitized_text
+        # params[:street] = query.sanitized_text
+        # params[:city] = query.sanitized_text
+        # params[:state] = query.sanitized_text
+        # params[:zip] = query.sanitized_text
       end
       return params
     end
