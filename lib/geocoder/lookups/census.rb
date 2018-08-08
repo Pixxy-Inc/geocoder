@@ -60,11 +60,11 @@ module Geocoder::Lookup
       else
         Rails.logger.info "sanitized_text======================"
         Rails.logger.info query.sanitized_text.inspect
-        params[:address] = query.sanitized_text
-        # params[:street] = query.sanitized_text
-        # params[:city] = query.sanitized_text
-        # params[:state] = query.sanitized_text
-        # params[:zip] = query.sanitized_text
+        # params[:address] = query.sanitized_text
+        params[:street] = query.sanitized_text[0]
+        params[:city] = query.sanitized_text[1]
+        params[:state] = query.sanitized_text[2]
+        params[:zip] = query.sanitized_text[3]
       end
       return params
     end
