@@ -66,11 +66,11 @@ module Geocoder::Lookup
         Rails.logger.info query.sanitized_text.inspect
         puts query.sanitized_text
         warn(query.sanitized_text)
-        # params[:address] = query.sanitized_text
-        params[:street] = query.sanitized_text[0]
-        params[:city] = query.sanitized_text[1]
-        params[:state] = query.sanitized_text[2]
-        params[:zip] = query.sanitized_text[3]
+        address_params = query.sanitized_text.split(",")
+        params[:street] = address_params[0]
+        params[:city] = address_params[1]
+        params[:state] = address_params[2]
+        params[:zip] = address_params[3]
       end
       return params
     end
